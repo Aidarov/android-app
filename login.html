@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Страница на вход</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	
+	<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase.js"></script>
+	<script>
+		var config = {
+			apiKey: "AIzaSyB2gaGvDrKHxCRlf6n-WUg88sBeIMGHoaw",
+			authDomain: "test1-2d3f3.firebaseapp.com",
+			databaseURL: "https://test1-2d3f3.firebaseio.com",
+			projectId: "test1-2d3f3",
+			storageBucket: "test1-2d3f3.appspot.com",
+			messagingSenderId: "625401203700"
+		};
+		firebase.initializeApp(config);
+	</script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container auth-container">
+
+		<form class="form-signin" id="login-form">
+			<h2 class="form-signin-heading">Войдите в систему</h2>
+			<label for="inputEmail" class="sr-only">Email адрес</label>
+			<input type="email" id="inputEmail" class="form-control" placeholder="Ваш Email" required autofocus>
+			<label for="inputPassword" class="sr-only">Пароль</label>
+			<input type="password" id="inputPassword" class="form-control" placeholder="Ваш пароль" required>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" value="remember-me">Запомнить меня
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" id="loginBtn">Войти</button>
+			<p style="padding: 0; margin: 0;">
+				<a href="#" data-toggle="modal" data-target="#rememberPasswordModal">Забыли пароль</a>
+			</p>
+			<p style="padding: 0; margin: 0;">
+				<a href="#" data-toggle="modal" data-target="#registrationUserModal">Регистрация</a>
+			</p>
+		</form>
+		<div class="modal fade" id="rememberPasswordModal" tabindex="-1" role="dialog" aria-labelledby="rememberPasswordModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="rememberPasswordLabel">Забыли пароль</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<input type="email" class="form-control" placeholder="Ваш Email" id="emailRemember" required>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+						<button type="button" class="btn btn-primary" id="emailRememberButton">Отправить на почту</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="registrationUserModal" tabindex="-1" role="dialog" aria-labelledby="registrationUserModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="registrationUserModalLabel">Регистрация пользователя</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<input type="email" id="RegistrationInputEmail" class="form-control" style="margin-bottom: 5px;" placeholder="Ваш Email" required>
+						
+						<input type="password" id="RegistrationInputPassword" style="margin-bottom: 5px;" class="form-control" placeholder="Новый пароль" required>
+						
+						<input type="password" id="RegistrationInputPasswordConfirm" class="form-control" placeholder="Подтвердите пароль" required>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+						<button type="button" class="btn btn-primary" id="registrationButton">Зарегистрироваться</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    </div>	
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/login.js"></script>
+	
+  </body>
+</html>
