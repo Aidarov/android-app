@@ -52,6 +52,7 @@
 						<li><a href="#videos">Видеоматериалы<span class="badge">4</span></a></li>
 						<li><a href="#courses">Курсы</a></li>
 						<li><a href="#users">Пользователи</a></li>
+						<li><a href="#add_video">Добавить видео&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
 					</ul>
 					
 					<ul class="nav navbar-nav navbar-right">
@@ -113,7 +114,47 @@
 			</div>
 			
 			<div id="videos" class="content">
-				<p><button type="button" class="btn btn-success" id="add-video-btn">Добавить видео</button></p>
+				<!--<p><button type="button" class="btn btn-success" id="add-video-btn">Добавить видео</button></p>-->
+				<table class="table" id="video_list_table">
+					<tr>
+						<td>#</td>
+						<td>Название</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div id="add_video" class="content">
+				<form>
+					<div class="form-group">
+						<label for="videoName">Название видеоматериала</label>
+						<input type="text" class="form-control" id="videoName" placeholder="Название видеоматериала">
+					</div>
+					<div class="form-group">
+						<label for="courseList">Выберите вид курса</label>
+						<select id="courseList" class="form-control">
+							<option>Test</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="videoProductType">Выберите тарифный план</label>
+						<select id="videoProductType" class="form-control">
+							<option>Test</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="videoDescription">Описание</label>
+						 <textarea class="form-control" rows="5" id="videoDescription"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="fileUploadItem">Загрузить видео</label>
+						<input type="file" class="form-control-file" id="fileUploadItem">
+					</div>
+					<br>
+					<br>
+					<div class="form-group">
+						<button type="button" class="btn btn-primary" id="videoAddBtn">Сохранить</button>
+					</div>
+				</form>	
 			</div>
 
 		</div>

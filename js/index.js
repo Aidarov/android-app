@@ -37,9 +37,11 @@ $(document).ready(function(){
 		$("#product_list_table").find("tr:gt(0)").remove();
 		var index = 0;
 		
-		//console.log(snapshot.val());
+		$("#videoProductType").find("option").remove();
 		
 		$.each( snapshot.val(), function( key, value ) {
+			
+			$('#videoProductType').append($("<option></option>").attr("value", key).text(value.name));
 			
 			firebase.database().ref("users/" + value.author_uid).once("value").then(function(sub_snapshot){
 				index++
@@ -107,8 +109,13 @@ $(document).ready(function(){
 	firebase.database().ref("categories").on("value", function(snapshot){
 		
 		$("#course_list_table").find("tr:gt(0)").remove();
+		$("#courseList").find('option').remove();
+		
 		var index = 0;
 		$.each( snapshot.val(), function( key, value ) {
+			
+			$('#courseList').append($("<option></option>").attr("value", key).text(value.name));
+			
 			index++;
 			var cls = "success";
 			if(value.blocked == 0) {
@@ -189,5 +196,38 @@ $(document).ready(function(){
 			$(this).parent().parent().attr("class", "success");
 		}		
 	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$(document).on("click", "#videoAddBtn", function(){
+		
+		
+		var reader = new FileReader();
+		reader.onloadend = function (evt) {
+			var blob = new Blob([evt.target.result], { type: "video/mp4" });
+
+			var storageRef = firebase.storage().ref("/videos/whatsapp.mp4");
+			
+			storageRef.put(blob).then(function(snapshot) {
+				console.log('Uploaded a blob or file!');
+			});
+
+		}
+		
+		reader.readAsArrayBuffer(document.getElementById("fileUploadItem").files[0]);
+		//console.log($("#fileUploadItem")[0]);
+	});
+	
+	
+	
+
+	
 	
 });
