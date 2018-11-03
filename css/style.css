@@ -35,3 +35,7 @@
 .content {
 	display: none;
 }
+label.errorMessage{
+	display: none;
+	color: red;
+}

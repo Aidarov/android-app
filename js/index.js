@@ -1,3 +1,13 @@
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+
 $(document).ready(function(){
 	var user = firebase.auth().currentUser;
 	
@@ -202,27 +212,86 @@ $(document).ready(function(){
 	
 	
 	
-	
-	
-	
-	
 	$(document).on("click", "#videoAddBtn", function(){
 		
+		$("#add_video .errorMessage").css("display", "none");
+		
+		if($("#videoName").val().trim() == ""){
+			$("#add_video label[for='videoName']").css("display", "block");			
+		}
+		
+		if($("#videoDescription").val().trim() == ""){
+			$("#add_video label[for='videoDescription']").css("display", "block");			
+		}
+		
+		if($("#fileUploadItem").val() == ""){
+			$("#add_video label[for='fileUploadItem']").css("display", "block");			
+		}
+		
+		if($("#add_video .errorMessage:visible").length > 0){			
+			return false;
+		}
+		
+		
+		
+		
+			
 		
 		var reader = new FileReader();
+		var file = document.getElementById("fileUploadItem").files[0];
+		
 		reader.onloadend = function (evt) {
-			var blob = new Blob([evt.target.result], { type: "video/mp4" });
+			
+			
+			var blob = new Blob([evt.target.result], { type: file.type });
+			
+			
+			var path = "/videos/" + guid() + "." + file.name.split('.').pop().toLowerCase();
 
-			var storageRef = firebase.storage().ref("/videos/whatsapp.mp4");
+			var storageRef = firebase.storage().ref(path);
 			
 			storageRef.put(blob).then(function(snapshot) {
-				console.log('Uploaded a blob or file!');
+				
+				var key = firebase.database().ref().child('videos').push().key;
+				var result = firebase.database().ref().child("videos/" + key).set({
+					author_uid: 	"1UYnTybjrdNxQ7TaX60PJ3pPMdr1",
+					category: 		$("#courseList").val(),
+					creation_date: 	new Date()/1000,
+					description: 	$("#videoDescription").val(),
+					format: 		file.type,
+					modified_date: 	new Date()/1000,
+					name: 			$("#videoName").val(),
+					path: 			path,
+					size: 			file.size,
+					blocked: 		0,
+					tariff: 		$("#videoProductType").val(),
+					file_name: 		file.name
+				});
+				
+				
 			});
 
 		}
 		
-		reader.readAsArrayBuffer(document.getElementById("fileUploadItem").files[0]);
-		//console.log($("#fileUploadItem")[0]);
+		reader.readAsArrayBuffer(file);
+		
+		
+	});
+	
+	firebase.database().ref("videos").once("value").then(function(snapshot){
+		$("#video_list_table").find("tr:gt(0)").remove();
+		
+		$.each(snapshot.val(), function(key, value){
+			
+			var path = firebase.storage().ref(value.path).fullPath;
+			console.log(path);
+			
+			$("#video_list_table").find("tbody").append("<tr><td>" + key + "</td><td><video controls width=\"300\" class=\"embed-responsive-item\"><source src=\"" + "https://firebasestorage.googleapis.com/v0/b/test1-2d3f3.appspot.com/o/videos%2F92d59625-9276-3275-0c85-073b6c50c46d.mp4?alt=media&token=df92f43c-2688-4bc7-bee3-ddc2d409eff5" + "\" type=\"video/mp4\"></video></td></tr>");
+			
+			
+		});
+		
+		console.log(snapshot.val());
 	});
 	
 	
